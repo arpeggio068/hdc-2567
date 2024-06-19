@@ -1,0 +1,20 @@
+p, p.mg-bt{
+    margin-bottom: 5px;
+  }
+
+  #btnHdc,#coc{
+    display:none;
+  }
+
+  th.dt-center, td.dt-center { text-align: center; }
+
+  #loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin:auto;
+    z-index: 10000;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.9);
+  }
