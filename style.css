@@ -1,8 +1,8 @@
-p, p.mg-bt{
+  p, p.mg-bt{
     margin-bottom: 5px;
   }
 
-  #btnHdc,#coc{
+  #btnHdc,#coc,#showChart, #chartEl,#multiEl{
     display:none;
   }
 
@@ -17,4 +17,30 @@ p, p.mg-bt{
     width: 100vw;
     height: 100vh;
     background-color: rgba(255,255,255,0.9);
+  }
+
+  .multi_select_box{
+    width:auto;
+    margin:10px auto;
+  }
+  .multi_select_box select{
+    width:auto;         
+  }
+  .multi_select_box button{
+    background-color:rgb(255, 255, 255) !important;   
+    color:#101010 !important;   
+    padding: 6px;   
+    border-color: #918a8a; 
+  }
+  .nav {
+    background-color: #F3FBC0 !important;
+  }
+
+  .nav-link{
+    cursor:pointer;  
+    font-size: 0.8rem;
+  }
+
+  .active{
+    background-color: #f5f7e9 !important;
   }
