@@ -38,21 +38,24 @@ var lastBudyear=""
             timer: 1500
            });
            hideSpin3()
+           hideSpin4()
            document.getElementById("btn1").disabled = false
+           document.getElementById("btn2").disabled = false
            console.log("loading end");
         }
 
         console.log(loadedDataCount);
         return select;
     } catch (error) {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "การเชื่อมต่อผิดพลาด!",
-          showConfirmButton: true,        
-         });
-        hideSpin3()       
-        console.error("Error in fetch:", error.message);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "การเชื่อมต่อผิดพลาด!",
+        showConfirmButton: true,        
+       });
+       hideSpin3()  
+       hideSpin4()  
+       console.error("Error in fetch:", error.message);
     }
   }
 
@@ -146,7 +149,6 @@ var lastBudyear=""
         r[0],r[3],re2,re3,re4,re5,re6,re7,re8,re9
       ])      
     })
-
     //console.log(newArr)
     genTable(newArr)
     genTableCoc(dash10)
@@ -378,7 +380,17 @@ var lastBudyear=""
         result+=  `<option  value="${r[0]}">${r[1]}</option>`
       })
 
+      let result2 = ''
+      gAmpOption.forEach(r=>{
+        result2+=  `<option value="${r[0]}">${r[1]}</option>`
+      })
+      
+
       $('#ampur').html(result)
+      $('#ampur_ch').html(result2)
+      $(document).ready(function(){
+        $('.multi_select').selectpicker();
+      })
       loadingEnd()
       console.log("load page success")      
     })
@@ -387,7 +399,7 @@ var lastBudyear=""
         position: "center",
         icon: "error",
         title: "การเชื่อมต่อผิดพลาด!",
-        showConfirmButton: true,
+        showConfirmButton: false,
         //timer: 1500
        });
        loadingEnd()
@@ -395,5 +407,11 @@ var lastBudyear=""
     });
     
   }
-  
-  document.addEventListener('DOMContentLoaded',loadPage)
+ 
+  document.getElementById("navigation").addEventListener("click",navClickEventHandler);
+  document.getElementById("table-link").addEventListener("click",showMainTable);
+  document.getElementById("chart-link").addEventListener("click",showMainChart);
+  document.addEventListener('DOMContentLoaded',()=>{
+    loadPage()
+    showMainTable()
+  })
