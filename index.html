@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API</title>
+    <title>HDC API</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -11,8 +11,22 @@
   
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/fc-4.2.2/fh-3.3.2/r-2.4.1/sc-2.1.1/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
+    <nav id="navigation"> 
+        <ul class="nav nav-tabs main-nav nav-fill">        
+          <li class="nav-item">
+          <div class="nav-link active" id="table-link" >Table</div>
+          </li>
+
+          <li class="nav-item">
+          <div class="nav-link" id="chart-link" >Chart</div>
+          </li>         
+
+        </ul>        
+    </nav>     
     <div class="container">
         <section id="add_form">   
             <div class="row my-3">
@@ -20,32 +34,33 @@
                     <h4>ตัวชี้วัดกระทรวง 2567</h4>                 
                 </div>
             </div>                               
-                <div class="row my-3">                    
-                    
-                    <div class="col">
-                        <select type="text" id="budyear" class="form-select">
-                            <option disabled selected value="">ปีงบประมาณ</option>
-                            <option>2567</option>
-                            <option>2566</option>
-                            <option>2565</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select id="ampur" class="form-select">
-                           
-                        </select>
-                    </div>
-                    <div class="col">
-                        <button id="btn1" type="button" class="btn btn-primary" onclick="beforeLoad()">OK</button>  
-                        <span id="resp-spinner1" class="spinner-grow spinner-grow-sm text-danger d-none" role="status" aria-hidden="true">
-                        </span>
-                        <span id="resp-spinner2" class="spinner-grow spinner-grow-sm text-warning d-none" role="status" aria-hidden="true">
-                        </span>
-                        <span id="resp-spinner3" class="spinner-grow spinner-grow-sm text-info d-none" role="status" aria-hidden="true">
-                        </span>     
-                    </div>
-                </div>
-                <div class="row my-2">
+            <div class="row my-3">                    
+                                     
+                        <div class="col col-md-4">
+                            <select type="text" id="budyear" class="form-select">
+                                <option disabled selected value="">ปีงบประมาณ</option>
+                                <option>2567</option>
+                                <option>2566</option>
+                                <option>2565</option>
+                            </select>
+                        </div>
+                        <div class="col col-md-4" id="tableEl1">
+                            <select id="ampur" class="form-select">
+                            
+                            </select>                        
+                        </div>
+                        <div class="col col-md-4" id="tableEl2">
+                            <button id="btn1" type="button" class="btn btn-primary" onclick="beforeLoad()">OK</button>  
+                            <span id="resp-spinner1" class="spinner-grow spinner-grow-sm text-danger d-none" role="status" aria-hidden="true">
+                            </span>
+                            <span id="resp-spinner2" class="spinner-grow spinner-grow-sm text-warning d-none" role="status" aria-hidden="true">
+                            </span>
+                            <span id="resp-spinner3" class="spinner-grow spinner-grow-sm text-info d-none" role="status" aria-hidden="true">
+                            </span>     
+                        </div>                
+            </div>
+
+            <div class="row my-2" id="chBtnTable1">
                     <div class="col col-md-1">  
                         <p id="btnCoc" type="button" style="color: #29980A;" onclick="showCocTable()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
@@ -58,9 +73,30 @@
                             </svg>
                         </p>                                                                               
                     </div>               
-                </div>        
+            </div>     
+                  
+        </section>
+
+        <section id="multiEl">
+            <div class="row my-2" >                 
+                <div class="col multi_select_box" >                                                   
+                    <select id="ampur_ch" class="multi_select w-100" multiple data-selected-text-format="count > 3"  multiple title="เลือกอย่างน้อย 2 อำเภอ">
+                    </select>  
+                                    
+                </div>
+                <div class="col">
+                    <button id="btn2" type="button" class="btn btn-success" onclick="beforeChart()">ดูข้อมูล</button>  
+                    <span id="resp-spinner4" class="spinner-grow spinner-grow-sm text-danger d-none" role="status" aria-hidden="true">
+                    </span>
+                    <span id="resp-spinner5" class="spinner-grow spinner-grow-sm text-warning d-none" role="status" aria-hidden="true">
+                    </span>
+                    <span id="resp-spinner6" class="spinner-grow spinner-grow-sm text-info d-none" role="status" aria-hidden="true">
+                    </span>     
+                </div>                
+           </div>  
         </section>
         <section id="hdc">
+            
             <div  class="row my-3">
                 <div id="hdc_table" class="col"></div>
             </div>            
@@ -71,17 +107,29 @@
                 <div id="coc_table" class="col"></div>
             </div>             
         </section>
+
+        <section id="showChart">             
+
+            <div class="row my-3">  
+                <div id="chart" class="col"></div>
+            </div>
+
+        </section>
         <div id = "loading" class="d-flex justify-content-center align-items-center invisible">
             <div class="spinner-grow" style="width:3rem; height: 3rem; color:#29980A;" role="status"></div>       
             <span style="color:#E1940E">โปรดรอ...</span>        
         </div> 
-    </div>     
+
+    </div>    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
     <script src="util.js" type="text/javascript"></script>
+    <script src="ch.js" type="text/javascript"></script>
     <script src="script.js" type="text/javascript"></script>
      
 </body>
