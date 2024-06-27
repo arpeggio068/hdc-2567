@@ -48,10 +48,44 @@
     document.getElementById('resp-spinner3').classList.add("d-none");
   } 
 
+  function showSpin4(){
+    document.getElementById('resp-spinner4').classList.remove("d-none");
+    document.getElementById('resp-spinner5').classList.remove("d-none");
+    document.getElementById('resp-spinner6').classList.remove("d-none");
+  }
+
+  function hideSpin4(){
+    document.getElementById('resp-spinner4').classList.add("d-none");
+    document.getElementById('resp-spinner5').classList.add("d-none");
+    document.getElementById('resp-spinner6').classList.add("d-none");
+  } 
+
   function swColor(target,result){
     const color = Number(result) >= Number(target) ? "green" : "red"
     return color
   }  
+
+//----------------------------------------------------------------------------------//
+//-------     Web Event Function                                       -------------// 
+//----------------------------------------------------------------------------------//  
+
+  function activeTabChange(e){
+    var navLinkS= document.querySelectorAll(".main-nav .nav-link");
+    navLinkS.forEach(function(linkEl){
+      linkEl.classList.remove("active");        
+    });
+    e.target.classList.add("active");
+  }       
+
+  function navClickEventHandler(e){
+
+    if(e.target.matches(".nav-link")){
+    activeTabChange(e);               
+    }      
+  }
+//----------------------------------------------------------------------------------//
+//-------    End Web Event Function                                    -------------// 
+//----------------------------------------------------------------------------------// 
 
   function popS1(){
     const link = "https://cri.hdc.moph.go.th/hdc/reports/report.php?cat_id=db30e434e30565c12fbac44958e338d5&id=8897d18c21ad97d18cfb0a98abc5fb3f"
