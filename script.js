@@ -28,6 +28,8 @@ var lastBudyear=""
         
         const select = data.filter(r => r['areacode'].substring(0, 2) === "57");
         loadedDataCount++;
+        Swal.fire({ title: 'กำลังโหลดข้อมูล โปรดรอ... '+(10-loadedDataCount) });
+        Swal.showLoading();
 
         if (loadedDataCount == 10) {
           Swal.fire({
@@ -84,7 +86,7 @@ var lastBudyear=""
   }
 
   async function loadTable() {
-    Swal.fire({ title: 'กำลังโหลดข้อมูล โปรดรอ...' });
+    Swal.fire({ title: 'กำลังโหลดข้อมูล โปรดรอ... '+(10-loadedDataCount) });
     Swal.showLoading();
     showSpin3()
     $('#hdc_table').html('')
